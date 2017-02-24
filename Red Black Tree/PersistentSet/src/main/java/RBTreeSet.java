@@ -21,6 +21,7 @@ public class RBTreeSet<E extends Comparable<E>> implements Set<E>{
             this.color = 0;
         }
 
+        
         // Black Node
         Node(Comparable elem){
            this.elem = elem;
@@ -39,6 +40,7 @@ public class RBTreeSet<E extends Comparable<E>> implements Set<E>{
             this.color = 1;
         }
     }
+    
     public class RBIterator implements Iterator<E>{
 
         private Stack<Node> elements = new Stack<Node>();
@@ -103,7 +105,6 @@ public class RBTreeSet<E extends Comparable<E>> implements Set<E>{
         return new RBIterator();
     }
 
-    // DO if you have time
     public int size(){
         return size;
     }
@@ -142,7 +143,7 @@ public class RBTreeSet<E extends Comparable<E>> implements Set<E>{
     void rebalanceInsert(Node subroot){
 
         // 1. If color of subroot's parent is not BLACK or subroot is NOT root
-        if(subroot != root && subroot.parent.color == 1) { // changed from OR
+        if(subroot != root && subroot.parent.color == 1) { 
             Node uncle = uncle(subroot);
             Node grandp = grandparent(subroot);
             if (uncle != null && uncle.color == 1) {
@@ -158,7 +159,6 @@ public class RBTreeSet<E extends Comparable<E>> implements Set<E>{
                     if (subroot == subroot.parent.left) {     // Left Left
                         adjustRotateRight(grandp, true);
                     } else {                                  // Left Right
-                        //grandp.left = rotateLeft(subroot.parent);
                         adjustRotateLeft(subroot.parent, true);
                         adjustRotateRight(grandp, true);
                     }
@@ -166,7 +166,6 @@ public class RBTreeSet<E extends Comparable<E>> implements Set<E>{
                     if (subroot == subroot.parent.right) {    // Right Right
                         adjustRotateLeft(grandp, true);
                     } else {                                   // Right Left
-                        //grandp.right = rotateRight(subroot.parent); // CHECK
                         adjustRotateRight(subroot.parent, true);
                         adjustRotateLeft(grandp, true);
                     }
@@ -267,7 +266,7 @@ public class RBTreeSet<E extends Comparable<E>> implements Set<E>{
                 if(sibling.color == 1){
                     sibling.color = 0;
                     subroot.parent.color = 1;
-                    adjustRotateRight(subroot.parent, false);   // look at their imp of rotate
+                    adjustRotateRight(subroot.parent, false);   
                     sibling = subroot.parent.left;
                 }
                 if(isBlack(sibling.right) && isBlack(sibling.left)){
